@@ -1,0 +1,25 @@
+<h2>Search Authors</h2>
+
+<form action="/authors" method="get">
+  <div class="form-group m-2">
+    <label for="author">Author's name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="author"
+      name="author"
+      aria-describedby="author"
+      placeholder="Enter Author Name"
+      value="<%= searchOptions.author %>"
+    />
+  </div>
+  <div class="m-2">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+<br />
+<% all_authors.forEach(author => { %>
+<div>
+  <span><%= author.name %></span>
+</div>
+<% }) %>
