@@ -1,0 +1,17 @@
+<div class="m-2">
+  <h2>Add a Book</h2>
+</div>
+
+<form
+  class="m-2"
+  action="/books/new"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <%- include('_form_fields.ejs') %>
+  <div class="m-2">
+    <a href="/books" class="btn btn-warning mx-2">Cancel</a>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>

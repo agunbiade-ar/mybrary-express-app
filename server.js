@@ -24,14 +24,17 @@ const port = process.env.port || 3000;
 
 const { indexRouter } = require('./routes/index.route');
 const { authorRouter } = require('./routes/author.route');
+const { bookRouter } = require('./routes/book.route');
+
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/layout');
 app.set('views', path.resolve(__dirname, 'views'));
 app.use(expressLayouts);
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
 connectToMongoDB();
 
 app.use('', indexRouter);
 app.use('/authors', authorRouter);
+app.use('/books', bookRouter);

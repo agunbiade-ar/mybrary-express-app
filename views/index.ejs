@@ -1,1 +1,23 @@
-middle
+<h2>Recently Added</h2>
+
+<div class="container">
+  <% for (let i = 0; i < books.length; i += 2) { %>
+  <div class="row">
+    <% for (let j = i; j < i + 2 && j < books.length; j++) { %>
+    <div class="col-sm">
+      <div class="m-2">
+        <a href="#">
+          <h6><%= books[j].title %></h6>
+          <img
+            height="150"
+            width="100"
+            alt="<%= books[j].title %>"
+            src="<%= books[j].coverImagePath %>"
+          />
+        </a>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>
