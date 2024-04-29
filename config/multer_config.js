@@ -4,7 +4,7 @@ const path = require('path');
 
 const uploadPath = path.join('public', Book.coverImageBasePath);
 
-const imageMimeTypes = ['images/jpeg', 'images/gif', 'images/png'];
+const imageMimeTypes = ['image/jpeg', 'image/gif', 'image/png'];
 
 const upload = multer({
   dest: uploadPath,

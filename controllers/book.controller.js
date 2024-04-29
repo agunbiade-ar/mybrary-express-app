@@ -1,15 +1,7 @@
 const Book = require('../models/book.model');
 const Author = require('../models/author.model');
 const handler = require('express-async-handler');
-const fs = require('fs');
-const path = require('path');
-const { uploadPath } = require('../config/multer_config');
-
-function removeBookCover(filename) {
-  fs.unlink(path.join(uploadPath, filename), (err) => {
-    if (err) console.error(err);
-  });
-}
+const imageMimeTypes = ['image/jpeg', 'image/gif', 'image/png'];
 
 async function renderNewPage(res, book, hasError = false) {
   try {
@@ -17,14 +9,28 @@ async function renderNewPage(res, book, hasError = false) {
     const params = { authors, book };
     if (hasError) {
       params.errorMessage = 'Error Creating Book!';
-      if (book.coverImageName != null) {
-        removeBookCover(book.coverImageName);
-      }
+      // if (book.coverImageName != null) {
+      //   removeBookCover(book.coverImageName);
+      // }
     }
     res.render('books/new', params);
   } catch (error) {
     console.log(error);
     res.redirect('/books');
+  }
+}
+
+function saveCover(book, encodedCover) {
+  const cover = JSON.parse(encodedCover);
+  if (!cover) return;
+
+  let coverType = cover.type;
+  let data = cover.data;
+
+  if (cover != null && imageMimeTypes.includes(coverType)) {
+    book.coverImage = Buffer.from(data, 'base64');
+    book.coverImageType = coverType;
+    return book;
   }
 }
 
@@ -63,17 +69,16 @@ const new_book_get = async (req, res, next) => {
 
 //create book route
 const new_book_post = async (req, res, next) => {
-  const book = new Book({
+  let book = new Book({
     title: req.body.title,
     author: req.body.author,
     description: req.body.description,
     publishedDate: new Date(req.body.publishedDate),
     pageCount: req.body.pageCount,
   });
-  //if there's a file, get the filename, else the name is null
-  const fileName = req.file != null ? req.file.filename : null;
-
-  book.coverImageName = fileName + path.extname(req.file.originalname);
+  book.cover;
+  // console.log(req.body);
+  book = saveCover(book, req.body.cover);
 
   try {
     await book.save();

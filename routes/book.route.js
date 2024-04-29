@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/multer_config').upload;
+// const upload = require('../config/multer_config').upload;
 
 const {
   all_books_get,
@@ -10,6 +10,6 @@ const {
 
 router.get('/', all_books_get);
 router.get('/new', new_book_get);
-router.post('/new', upload.single('cover'), new_book_post);
+router.post('/new', new_book_post);
 
 module.exports.bookRouter = router;

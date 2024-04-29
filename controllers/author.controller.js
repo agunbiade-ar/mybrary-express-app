@@ -40,8 +40,28 @@ const new_author_post = async (req, res, next) => {
   }
 };
 
+//get a particular author
+const get_single_author = (req, res, next) => {
+  res.send('show author ' + req.params.id);
+};
+
+const get_edit_author = (req, res, next) => {
+  res.send('author edit page ' + +req.params.id);
+};
+
+const update_author = (req, res, next) => {
+  res.send('update author ' + +req.params.id);
+};
+
+const delete_author = (req, res, next) => {
+  res.send('delete author ' + req.params.id);
+};
 module.exports = {
   all_authors_get,
   new_author_get,
   new_author_post,
+  get_single_author,
+  get_edit_author,
+  update_author,
+  delete_author,
 };
